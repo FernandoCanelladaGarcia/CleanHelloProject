@@ -4,7 +4,7 @@ android {
     compileSdkVersion 25
     buildToolsVersion "25.0.0"
     defaultConfig {
-        applicationId "es.ulpgc.eite.clean.mvp.dummy"
+        applicationId "es.ulpgc.eite.clean.mvp.HelloProject"
         minSdkVersion 19
         targetSdkVersion 25
         versionCode 1

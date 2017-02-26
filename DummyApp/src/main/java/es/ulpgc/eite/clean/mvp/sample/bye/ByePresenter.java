@@ -92,7 +92,7 @@ public class ByePresenter extends GenericPresenter
 
   @Override
   public void onButtonClicked() {
-    Log.d(TAG, "calling onButtonClicked()");
+    Log.d(TAG, "calling onSayHelloBtnClicked()");
     if(isViewRunning()) {
       getModel().onChangeMsgByBtnClicked();
       getView().setText(getModel().getText());

@@ -1,16 +1,16 @@
 package es.ulpgc.eite.clean.mvp.sample.hello;
 
 import es.ulpgc.eite.clean.mvp.GenericModel;
-import es.ulpgc.eite.clean.mvp.sample.hello.Hello;
 
 
 public class HelloModel extends GenericModel<es.ulpgc.eite.clean.mvp.sample.hello.Hello.ModelToPresenter>
     implements es.ulpgc.eite.clean.mvp.sample.hello.Hello.PresenterToModel {
 
-  private String helloText;
-  private String helloLabel;
+  private String helloMsgText;
+  private String sayHelloBtnLabel;
   private int numOfTimes;
   private String msgText;
+  private String goToByeBtnLabel;
 
   /**
    * Method that recovers a reference to the PRESENTER
@@ -22,8 +22,9 @@ public class HelloModel extends GenericModel<es.ulpgc.eite.clean.mvp.sample.hell
   public void onCreate(Hello.ModelToPresenter presenter) {
     super.onCreate(presenter);
 
-    helloLabel = "Click Me!";
-    helloText = "Hello World!";
+    sayHelloBtnLabel = "Click Me!";
+    helloMsgText = "Hello World!";
+    goToByeBtnLabel = "Go To Bye";
   }
 
   /**
@@ -43,20 +44,25 @@ public class HelloModel extends GenericModel<es.ulpgc.eite.clean.mvp.sample.hell
 
   @Override
   public void onChangeMsgByBtnClicked() {
-    msgText = helloText;
+    /*msgText = helloMsgText;
     if(numOfTimes > 0) {
       msgText += ", " + numOfTimes + " times";
     }
-    numOfTimes++;
+    numOfTimes++;*/
   }
 
   @Override
-  public String getText() {
-    return msgText;
+  public String getHelloMsg() {
+    return helloMsgText;
   }
 
   @Override
-  public String getLabel() {
-    return helloLabel;
+  public String getGoToByeBtnLabel() {
+    return goToByeBtnLabel;
+  }
+
+  @Override
+  public String getSayHelloBtnLabel() {
+    return sayHelloBtnLabel;
   }
 }

@@ -8,32 +8,38 @@ import android.widget.TextView;
 
 import es.ulpgc.eite.clean.mvp.GenericActivity;
 import es.ulpgc.eite.clean.mvp.sample.R;
-import es.ulpgc.eite.clean.mvp.sample.hello.Hello;
-import es.ulpgc.eite.clean.mvp.sample.hello.HelloPresenter;
 
 public class HelloView
     extends GenericActivity<Hello.PresenterToView, Hello.ViewToPresenter, HelloPresenter>
     implements Hello.PresenterToView {
 
   private Toolbar toolbar;
-  private Button button;
-  private TextView text;
+  private Button btnSayHelloView, btnGoToByeView;
+  private TextView helloMsgView;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_hello);
 
-    text = (TextView) findViewById(R.id.text);
+    helloMsgView = (TextView) findViewById(R.id.text);
 
     toolbar = (Toolbar) findViewById(R.id.toolbar);
     setSupportActionBar(toolbar);
 
-    button = (Button) findViewById(R.id.button);
-    button.setOnClickListener(new View.OnClickListener() {
+    btnSayHelloView = (Button) findViewById(R.id.sayHelloBtn);
+    btnSayHelloView.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
-        getPresenter().onButtonClicked();
+        getPresenter().onSayHelloBtnClicked();
+      }
+    });
+
+    btnGoToByeView = (Button) findViewById(R.id.goToByeBtn);
+    btnGoToByeView.setOnClickListener(new View.OnClickListener(){
+      @Override
+      public void onClick (View view){
+        getPresenter().onGoToByeBtnClicked();
       }
     });
   }
@@ -58,7 +64,7 @@ public class HelloView
   @Override
   public boolean onOptionsItemSelected(MenuItem item) {
     // Handle action bar item clicks here. The action bar will
-    // automatically handle clicks on the Home/Up button, so long
+    // automatically handle clicks on the Home/Up btnSayHelloView, so long
     // as you specify a parent activity in AndroidManifest.xml.
     int id = item.getItemId();
 
@@ -86,22 +92,35 @@ public class HelloView
   }
 
   @Override
-  public void hideText() {
-    text.setVisibility(View.GONE);
+  public void hideHelloMsg() {
+    helloMsgView.setVisibility(View.GONE);
   }
+
+  @Override
+  public void showHelloMsg() {
+  helloMsgView.setVisibility(View.VISIBLE);
+  }
+
+
 
   @Override
   public void showText() {
-    text.setVisibility(View.VISIBLE);
+    helloMsgView.setVisibility(View.VISIBLE);
   }
 
   @Override
-  public void setText(String txt) {
-    text.setText(txt);
+  public void setHelloMsg(String txt) {
+    helloMsgView.setText(txt);
   }
 
   @Override
-  public void setLabel(String txt) {
-    button.setText(txt);
+  public void setSayHelloBtnLabel(String txt) {
+    btnSayHelloView.setText(txt);
+  }
+
+  @Override
+  public void setGoToByeBtnLabel(String txt) {
+    btnGoToByeView.setText(txt);
+
   }
 }

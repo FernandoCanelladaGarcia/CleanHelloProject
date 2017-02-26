@@ -16,6 +16,13 @@ public interface Hello {
   ///////////////////////////////////////////////////////////////////////////////////
   // State /////////////////////////////////////////////////////////////////////////
 
+  interface HelloToBye {
+
+    boolean isToolbarVisible();
+
+    Context getManagedContext();
+
+  }
   interface ToHello {
     void onScreenStarted();
     void setToolbarVisibility(boolean visible);
@@ -36,7 +43,9 @@ public interface Hello {
    * Methods offered to VIEW to communicate with PRESENTER
    */
   interface ViewToPresenter extends Presenter<PresenterToView> {
-    void onButtonClicked();
+
+    void onSayHelloBtnClicked();
+    void onGoToByeBtnClicked();
   }
 
   /**
@@ -45,10 +54,14 @@ public interface Hello {
   interface PresenterToView extends ContextView {
     void finishScreen();
     void hideToolbar();
-    void hideText();
+    void hideHelloMsg();
+    void showHelloMsg();
+
     void showText();
-    void setText(String txt);
-    void setLabel(String txt);
+
+    void setHelloMsg(String txt);
+    void setSayHelloBtnLabel(String txt);
+    void setGoToByeBtnLabel(String txt);
   }
 
   /**
@@ -56,8 +69,9 @@ public interface Hello {
    */
   interface PresenterToModel extends Model<ModelToPresenter> {
     void onChangeMsgByBtnClicked();
-    String getText();
-    String getLabel();
+    String getHelloMsg();
+    String getGoToByeBtnLabel();
+    String getSayHelloBtnLabel();
   }
 
   /**

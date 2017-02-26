@@ -7,16 +7,14 @@ import android.content.Intent;
 import es.ulpgc.eite.clean.mvp.sample.dummy.Dummy;
 import es.ulpgc.eite.clean.mvp.sample.dummy.DummyView;
 import es.ulpgc.eite.clean.mvp.sample.hello.Hello;
-import es.ulpgc.eite.clean.mvp.sample.hello.HelloView;
 import es.ulpgc.eite.clean.mvp.sample.bye.Bye;
-import es.ulpgc.eite.clean.mvp.sample.bye.ByeView;
 
 
 public class App extends Application implements Mediator, Navigator {
 
   private DummyState toDummyState, dummyToState;
   private HelloState toHelloState, helloToState;
-  private ByeState toByeState, byeToState;
+  private ByeState helloToByeState, byeToState;
 
   @Override
   public void onCreate() {
@@ -24,6 +22,8 @@ public class App extends Application implements Mediator, Navigator {
     toDummyState = new DummyState();
     toDummyState.toolbarVisibility = false;
     toDummyState.textVisibility = false;
+
+    toHelloState = new HelloState();
   }
 
   ///////////////////////////////////////////////////////////////////////////////////
@@ -42,16 +42,16 @@ public class App extends Application implements Mediator, Navigator {
   public void startingHelloScreen(Hello.ToHello presenter){
     if(toHelloState != null) {
       presenter.setToolbarVisibility(toHelloState.toolbarVisibility);
-      presenter.setTextVisibility(toHelloState.textVisibility);
+      //presenter.setTextVisibility(toHelloState.textVisibility);
     }
     presenter.onScreenStarted();
   }
 
   @Override
   public void startingByeScreen(Bye.ToBye presenter){
-    if(toByeState != null) {
-      presenter.setToolbarVisibility(toByeState.toolbarVisibility);
-      presenter.setTextVisibility(toByeState.textVisibility);
+    if(helloToByeState != null) {
+      presenter.setToolbarVisibility(helloToByeState.toolbarVisibility);
+      //presenter.setTextVisibility(helloToByeState.textVisibility);
     }
     presenter.onScreenStarted();
   }
@@ -72,8 +72,21 @@ public class App extends Application implements Mediator, Navigator {
       view.startActivity(new Intent(view, DummyView.class));
       presenter.destroyView();
     }
-
   }
+
+  @Override
+  public void goToByeScreen(Hello.HelloToBye presenter) {
+      helloToByeState = new ByeState();
+      helloToByeState.toolbarVisibility = presenter.isToolbarVisible();
+
+      Context view = presenter.getManagedContext();
+      if(view !=null){
+        view.startActivity(new Intent(view,DummyView.class));
+      }
+    }
+
+
+
 
   ///////////////////////////////////////////////////////////////////////////////////
   // State /////////////////////////////////////////////////////////////////////////
@@ -85,12 +98,12 @@ public class App extends Application implements Mediator, Navigator {
 
   private class HelloState {
     boolean toolbarVisibility;
-    boolean textVisibility;
+    //boolean textVisibility;
   }
 
   private class ByeState {
     boolean toolbarVisibility;
-    boolean textVisibility;
+    //boolean textVisibility;
   }
 
 }
